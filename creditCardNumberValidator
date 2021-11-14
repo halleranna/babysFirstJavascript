@@ -1,0 +1,56 @@
+function validateCred (arr) {
+    const notDoubled = [];
+    const doubled = [];
+    for(let i = arr.length - 1; i >= 0; i--) {
+        notDoubled.push(arr[i]);
+        i --;
+        }
+    for(let j = arr.length - 2; j >= 0; j--) {
+        let doubledValue = arr[j] * 2;
+        if (doubledValue > 9) {
+            doubledValue -= 9;
+        }
+        doubled.push(doubledValue);
+        j --;
+        }
+        const sumNotDoubled = notDoubled.reduce((acc, currVal) => {return acc + currVal});
+    const sumDoubled = doubled.reduce((acc, currVal) => {return acc + currVal});
+    const sum = sumNotDoubled + sumDoubled;
+    if (sum % 10 === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}; 
+
+const findInvalidCards = arr => {
+    const invalidCards = arr.filter(cardNum => validateCred(cardNum) === false);
+    return invalidCards;
+}
+
+const idInvalidCardCompanies = arr => {
+    companies = [];
+    const firstDigits = arr.map(cardNum => cardNum[0]);
+    if (firstDigits.includes(3)) {
+        companies.push('American Express');
+    }
+    if (firstDigits.includes(4)) {
+        companies.push('Visa');
+    } 
+    if (firstDigits.includes(5)) {
+            companies.push('Mastercard');
+        }
+    if (firstDigits.includes(6)) {
+            companies.push('Discover');
+        } 
+    for (let i = 0; i < firstDigits.length; i++) {
+        if (firstDigits[i] < 3 || firstDigits[i] > 6) {
+            companies.push('Company Not Found');
+            break;
+        }
+    }
+    return companies;
+}
+
+
+
